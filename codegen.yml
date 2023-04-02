@@ -1,5 +1,6 @@
 # 1. Schema - where is the graphql schema located
-schema: "https://api.lens.dev/"
+schema: "https://api.lens.dev/graphql"
+#Users/user/Documents/GitHub/Yablens/untitled folder/yab/introspectionSchema.json
 
 # 2. Documents - what path are the graphql operations located at?
 # Our documents are located at src/graphql
@@ -17,7 +18,7 @@ generates:
       - fragment-matcher
     config: 
      dedupeFragments: true 
-     fetcher: "./auth-fetcher#fetcher"
+     fetcher: 
      #what function to run 
-     func: 
+     func: "./auth-fetcher#fetcher"
      isReactHook: false
