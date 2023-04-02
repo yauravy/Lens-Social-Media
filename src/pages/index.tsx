@@ -1,36 +1,19 @@
 import { useExplorePublicationsQuery, PublicationSortCriteria } from "@/graphql/generated"
+import useLogin from "@/lib/auth/useLogin"
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react"
 import loadConfig from "next/dist/server/config"
 
 
 export default function Home() {
+  const address = useAddress()
+  const { mutate: requestLogin } = useLogin()
 
-  const { data, isLoading, error } = useExplorePublicationsQuery(
-    {
-      endpoint: "https://api.lens.dev",
-      fetchParams: {
-        // Return  application/json
-        headers: {
-          "Content-Type": "application/json",
-        }
-      },
-    },
-    {
-      request: {
-        sortCriteria: PublicationSortCriteria.TopCollected,
-      },
-    }
-  )
-
-  console.log({
-    data,
-    isLoading,
-    error,
-  });
-  
+  if(!address){
+    return(<ConnectWallet/>)
+  }
 
   return (
-    <>
-      <h1>helloss</h1>
-    </>
+    <button
+      onClick={() => requestLogin()}>Login</button>
   )
 }
